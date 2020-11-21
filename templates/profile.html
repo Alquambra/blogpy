@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block links %}
+<link type="text/css" href="{{ url_for('static', filename='css/profile.css')}}" rel="stylesheet">
+{% endblock %}
+
+{% block main %}
+<h2>Hi {{ user.name }}!</h2>
+<table>
+    <tr valign="top">
+        <td><img class="avatar" src="../static/css/img/avatar.png"></td>
+        <td>
+            <h1>User: {{ user.name }}</h1>
+            {% if user.about_me %}
+            <p>{{ user.about_me }}</p>
+            {% endif %}
+            {% if user.last_seen %}
+            <p>last seen on: {{ user.last_seen }}</p>
+            {% endif %}
+        </td>
+    </tr>
+</table>
+{% if user == current_user %}
+<a href="{{ url_for('profile_settings') }}">Изменить настройки профиля</a>
+<a href="{{ url_for('add_article') }}">Добавить статью</a>
+{% endif %}
+<h2>Статьи пользователя {{user.name}}</h2>
+<section>
+    {% for article, user in articles %}
+    <article>
+        <h3>{{article.title}}</h3>
+        <p>{{article.content[:500]}}...</p>
+        <p>{{article.tm_posted}}</p>
+    </article>
+    {% endfor %}
+</section>
+{% endblock %}

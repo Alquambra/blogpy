@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link type="text/css" href="{{ url_for('static', filename='css/header.css')}}" rel="stylesheet">
+    <link type="text/css" href="{{ url_for('static', filename='css/footer.css')}}" rel="stylesheet">
+    <link type="text/css" href="{{ url_for('static', filename='css/common.css')}}" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {% include 'header.html' %}
+    <main>
+        <form action="{{url_for('admin')}}" method="post" class="contact-form">
+            <p>
+                <label>Название статьи</label>
+                <input name="title_article" type="text" value="" required>
+            </p>
+
+            <p>
+                <label>Текст статьи</label>
+                <textarea name="text" rows="7" cols="40"></textarea>
+            </p>
+            <p>
+                <select name="genre">
+                    {% for genre in genres %}
+                    <option>{{genre}}</option>
+                    {% endfor %}
+                </select>
+            </p>
+            <input type="submit" value="Добавить">
+        </form>
+    </main>
+    {% include 'footer.html' %}
+</body>
+</html>

@@ -1,0 +1,40 @@
+.article-preview{
+    box-shadow: -1px 1px 15px #d0d0d0;
+    padding: 20px 40px 5px;
+    margin: 20px 0;
+
+
+}
+
+.article-header {
+    font-size: 36px;
+    font-family: ‘Open Sans Condensed’, sans-serif;
+
+    margin: 0 0 40px;
+}
+
+.article-text {
+    line-height: 28px;
+}
+
+.article-info {
+    font-size: 14px;
+}
+
+.article-author {
+    float: left;
+}
+
+.article-time {
+    float: right;
+}
+
+.article-genre {
+    clear: both;
+
+    border-top: 1px solid;
+    padding-top: 5px;
+    font-size: 12px;
+    font-style: italic;
+
+}

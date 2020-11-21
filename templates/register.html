@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<h2>Регистрация</h2>
+<form action="" method="post" novalidate>
+    <p>
+        <label>Username</label>
+        <input type="text" name="name" value="" required>
+    </p>
+    <p>
+        <label>Email</label>
+        <input type="email" name="email" value="" required>
+    </p>
+    <p>
+        <label>Password</label>
+        <input type="password" name="password" value="" required>
+    </p>
+    <p>
+        <label>Password again</label>
+        <input type="password" name="repeat_password" value="" required>
+    </p>
+    {% for cat, msg in get_flashed_messages(True) %}
+    <p class="flash">{{msg}}</p>
+    {% endfor %}
+    <p>
+        <input type="submit" value="Register">
+    </p>
+{% endblock %}
+</form>

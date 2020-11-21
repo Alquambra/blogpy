@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<form action="" method="post">
+    <p>
+        <label>Заголовок статьи</label>
+        <input type="text" name="add_title" required>
+    </p>
+    <p>
+        <label>Содержание статьи</label>
+        <textarea rows="20" cols="60" name="add_text" required></textarea>
+    </p>
+    <select name="add_genre">
+        {% for genre in genres %}
+        <option>{{genre.name_genre}}</option>
+        {% endfor %}
+    </select>
+    <input type="submit" value="Опубликовать статью">
+</form>
+{% endblock %}

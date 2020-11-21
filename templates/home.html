@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block links %}
+<link type="text/css" href="{{ url_for('static', filename='css/article_page.css')}}" rel="stylesheet">
+{% endblock %}
+
+{% block main %}
+
+    {% for article, genre, user in articles %}
+    <article class="article-preview">
+        <h3 class="article-header">{{article.title}}</h3>
+        <p class="article-text">{{article.content[:500]}}...</p>
+        <div class="article-info">
+            <p class="article-author">Автор:
+                <a href="{{ url_for('profile', username=user.name) }}">{{user.name}}</a>
+            </p>
+            <p class="article-time">{{article.tm_posted}}</p>
+        </div>
+        <p class="article-genre">{{genre.name_genre}}</p>
+    </article>
+    {% endfor %}
+{% endblock %}

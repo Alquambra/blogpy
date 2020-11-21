@@ -1,0 +1,23 @@
+body {
+    color: #333;
+    font-family: ‘Muli’, sans-serif;
+
+    background-image: url('img/pattern.png');
+
+}
+
+main {
+    background: white;
+}
+
+.box {
+    margin: 0 auto;
+    width: 1000px;
+
+
+}
+
+a {
+    color: #333;
+
+}

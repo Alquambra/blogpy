@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link type="text/css" href="{{ url_for('static', filename='css/header.css')}}" rel="stylesheet">
+    <link type="text/css" href="{{ url_for('static', filename='css/footer.css')}}" rel="stylesheet">
+    <link type="text/css" href="{{ url_for('static', filename='css/common.css')}}" rel="stylesheet">
+    <link type="text/css" href="{{ url_for('static', filename='css/normalize.css')}}" rel="stylesheet">
+    {% block links %}{% endblock %}
+    <meta charset="UTF-8">
+    {% if title %}
+    <title>{{ title }} Blog</title>
+    {% else %}
+    <title>Welcome to Blog</title>
+    {% endif %}
+</head>
+<body>
+    <header class="header">
+        <div class="top-header-bar">
+            <div class="box">
+                <a href="{{ url_for('home') }}" class="science-pop">Научно-популярный блог</a>
+                {% if current_user.is_anonymous %}
+                <a href= "{{ url_for('login') }}">
+                    <button class="btn btn-login">Войти</button>
+                </a>
+                <a href="{{ url_for('register') }}">
+                    <button class="btn btn-home">Регистрация</button>
+                </a>
+                {% else %}
+                <a href= "{{ url_for('logout') }}">
+                    <button class="btn btn-logout">Выйти</button>
+                </a>
+                <a href="{{ url_for('profile', username=current_user.name) }}">
+                    <button class="btn btn-home">Личный кабинет</button>
+                </a>
+                {% endif %}
+            </div>
+        </div>
+        <h1 class="main-header">Физика всему голова</h1>
+        <div class="navigation-bar">
+            <nav class="navigation box">
+                <ul class="genres">
+                    {% for genre in genres %}
+                    <li class="genre">
+                        <a href="{{ url_for(genre.urls) }}">{{genre.name_genre}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="box">
+
+        {% block main %}{% endblock %}
+    </main>
+
+    <footer class="footer">
+        <div class="box">
+            <h3>Контакты</h3>
+            <p>Телефон</p>
+            <p>Почта</p>
+        </div>
+    </footer>
+
+</body>
+</html>

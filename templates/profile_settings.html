@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<h2>Edit profile</h2>
+<form action="" method="post">
+    <p>
+        <label>Сменить название аккаунта</label>
+        <input type="text" name="account_change">
+    </p>
+    <p>
+        <label>О себе</label>
+        <textarea name="about" rows="6" cols="54"></textarea>
+    </p>
+    <p>
+        <input type="submit" value="Принять изменения">
+    </p>
+</form>
+{% endblock %}

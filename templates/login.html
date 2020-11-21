@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block links %}
+<link type="text/css" href="{{ url_for('static', filename='css/login.css')}}" rel="stylesheet">
+{% endblock %}
+
+{% block main %}
+<div class="authorization">
+    <h2 class="authorization-header">Авторизация</h2>
+    <form class="login-form" action="" method="post" novalidate>
+        <div class="input-data">
+            <label class="caption-input">Email</label>
+            <input class="field-text" type="email" name="email" value="" required>
+        </div>
+        <div class="input-data">
+            <label class="caption-input">Password</label>
+            <input class="field-text" type="password" name="password" value="" required>
+        </div>
+        {% for cat, msg in get_flashed_messages(True) %}
+        <div>
+            <p class="flash">{{msg}}</p>
+            {% endfor %}
+            <p>
+        </div>
+        <div class="btn-rmbme">
+            <input class="button" type="submit" value="Sign in">
+            <label>Remember me</label>
+            <input class="checkbox" type="checkbox" name="remember_me" value="Remember me">
+        </div>
+    </form>
+</div>
+{% endblock %}
