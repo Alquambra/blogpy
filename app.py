@@ -50,6 +50,9 @@ class Articles(db.Model):
 
 @app.before_request
 def before_request():
+    """
+    Функция обновляет время последнего посещения пользователя
+    """
     if current_user.is_authenticated:
         current_user.last_seen = datetime.utcnow()
         db.session.commit()
@@ -73,6 +76,9 @@ def internal_error(error):
 
 @app.route('/')
 def home():
+    """
+    Главная страница блога. Отображение всех статей.
+    """
     show_all_articles = db.session.query(Articles, Genres, Users).join(Genres).join(Users)\
         .order_by(Articles.tm_posted.desc()).all()
     return render_template('home.html', articles=show_all_articles, genres=db.session.query(Genres).all())
@@ -80,6 +86,9 @@ def home():
 
 @app.route('/astronomy')
 def astronomy():
+    """
+    Главная страница блога. Отображение статей по астрономии.
+    """
     show_all_articles = db.session.query(Articles, Genres, Users).join(Genres).join(Users) \
         .filter(Genres.name_genre == 'Астрономия').all()
     return render_template('home.html', articles=show_all_articles, genres=db.session.query(Genres).all())
@@ -87,6 +96,9 @@ def astronomy():
 
 @app.route('/electronics')
 def electronics():
+    """
+    Главная страница блога. Отображение статей по электронике.
+    """
     show_all_articles = db.session.query(Articles, Genres, Users).join(Genres).join(Users) \
         .filter(Genres.name_genre == 'Электроника').all()
     return render_template('home.html', articles=show_all_articles, genres=db.session.query(Genres).all())
@@ -94,6 +106,9 @@ def electronics():
 
 @app.route('/optics')
 def optics():
+    """
+    Главная страница блога. Отображение статей по оптике.
+    """
     show_all_articles = db.session.query(Articles, Genres, Users).join(Genres).join(Users) \
         .filter(Genres.name_genre == 'Оптика').all()
     return render_template('home.html', articles=show_all_articles, genres=db.session.query(Genres).all())
@@ -101,6 +116,9 @@ def optics():
 
 @app.route('/nuclear_physics')
 def nuclear_physics():
+    """
+    Главная страница блога. Отображение статей по ядерной физике.
+    """
     show_all_articles = db.session.query(Articles, Genres, Users).join(Genres).join(Users)\
         .filter(Genres.name_genre == 'Ядерная физика').all()
     return render_template('home.html', articles=show_all_articles, genres=db.session.query(Genres).all())
@@ -108,6 +126,9 @@ def nuclear_physics():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    """
+    Страница авторизации
+    """
     if current_user.is_authenticated:
         return redirect(url_for('home'))
     if request.method == 'POST':
@@ -129,12 +150,18 @@ def login():
 
 @app.route('/logout')
 def logout():
+    """
+    Деавторизация
+    """
     logout_user()
     return redirect(url_for('home'))
 
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+    """
+    Страница регистрации
+    """
     if request.method == 'POST':
         if request.form['password'] == request.form['repeat_password']:
             try:
@@ -156,6 +183,9 @@ def register():
 @app.route('/profile/<username>')
 @login_required
 def profile(username):
+    """
+    Страница профиля пользователя
+    """
     if current_user.is_authenticated:
         user = Users.query.filter_by(name=username).first_or_404()
         show_user_articles = db.session.query(Articles, Users).join(Users).filter(Users.name == username).all()
@@ -167,6 +197,9 @@ def profile(username):
 @app.route('/profile_settings', methods=['GET', 'POST'])
 @login_required
 def profile_settings():
+    """
+    Страница настроек профиля пользователя
+    """
     if request.method == 'POST':
         if request.form['account_change']:
             current_user.name = request.form['account_change']
@@ -180,6 +213,9 @@ def profile_settings():
 @app.route('/profile/add_article', methods=['GET', 'POST'])
 @login_required
 def add_article():
+    """
+    Страница добавления статьи в блог
+    """
     if request.method == 'POST':
         try:
             u = Articles(author_id=Users.query.filter_by(name=current_user.name).first().id,
